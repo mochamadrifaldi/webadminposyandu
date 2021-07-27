@@ -1,7 +1,7 @@
 /* file: connection.js */
 const MongoClient = require("mongodb").MongoClient
 const connectionString =
-"mongodb+srv://aldi:Railfansdaop@wpu.sjkqm.mongodb.net/wpu?retryWrites=true&w=majority";
+"mongodb+srv://aldi:Railfansdaop1@wpu.sjkqm.mongodb.net/wpu?retryWrites=true&w=majority";
 const client = new MongoClient(connectionString, { 
  useUnifiedTopology: true
 });
