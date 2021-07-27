@@ -12,4 +12,6 @@ const client = new MongoClient(connectionString, {
  console.error(error);
 }
 })();
+
 module.exports = client
+
