@@ -216,7 +216,7 @@
                   var id = this.id.replace("btnDel_", "");
                   $.ajax({
                   method: "DELETE",
-                  url: "http://localhost:3000/gambarthumbnail/"+id
+                  url: "gambarthumbnail/"+id
                   })
                   .done(function( msg ) {
                       if (msg =="berhasil"){
