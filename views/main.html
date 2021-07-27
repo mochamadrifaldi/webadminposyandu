@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <title>Web Posyandu</title>
+  </head>
+  <body class="pt-5" onload="myFunction()">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top main-navigation">
+      <div class="container-fluid">
+        <a class="navbar-brand order-2 order-lg-1 me-auto ms-3 me-lg-3 ms-lg-0" href="main.html" id="judul" style="font-family: helvetica;" href="#"><b>WELCOME ADMIN</b></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--Overlay-->
+        <div class="overlay d-flex d-lg-none"></div>
+        <!--Overlay-->
+        <div class="order-lg-2 bg-dark d-lg-flex w-100 pb-3 pb-lg-0 sidebar" id="navbarSupportedContent">
+          <ul class="navbar-nav me-lg-auto mb-2 mb-lg-0">
+           
+          </ul>
+          <!-- <form class="d-flex px-3 px-lg-2">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form> -->
+            <div id="clock">
+              <script>
+                  setInterval(showTime, 1000);
+                  function showTime() {
+                      let time = new Date();
+                      let hour = time.getHours();
+                      let min = time.getMinutes();
+                      let sec = time.getSeconds();
+            
+                      if (hour > 12) {
+                          hour -= 12;
+                      }
+                      if (hour == 0) {
+                          hr = 12;
+                      }
+            
+                      hour = hour < 10 ? "0" + hour : hour;
+                      min = min < 10 ? "0" + min : min;
+                      sec = sec < 10 ? "0" + sec : sec;
+            
+                      let currentTime = "TIME "+hour + ":" + min + ":" + sec ;
+            
+                      document.getElementById("clock").innerHTML = currentTime;
+                  }
+                  showTime();
+              </script>
+            </div>
+          <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item icon ms-4">
+                <a class="nav-link px-3 px-lg-2" href="https://www.google.com/gmail/">
+                  <i class="fas fa-envelope fa-lg" data-toggle="tooltip" title="Surat Masuk" style="color: white; vertical-align: middle;">
+                  </i>
+                </a>
+            </li>
+              <li class="nav-item icon ms-4">
+                <a class="nav-link px-3 px-lg-2" href="https://www.google.com">
+                  <i class="fab fa-google fa-lg" data-toggle="tooltip" title="Google.com" style="color: white; vertical-align: middle;">
+                  </i>
+                </a>
+            </li>
+            <li class="nav-item icon ms-4" id="btnLogout">
+                <a class="nav-link px-3 px-lg-2" >
+                  <i class="fas fa-sign-out-alt fa-lg" data-toggle="tooltip" title="Log Out" style="color: white; vertical-align: middle;">
+                  </i>
+                </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar -->
+    <div class="row g-0">
+      <div class="col-md-2 bg-dark pe-3 pt-5 pb-5">
+        <ul class="nav flex-column ms-3 mb-5" >
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="main.html"><i class="fas fa-tachometer-alt me-2"></i>
+            Dashboard</a><hr class="bg-light">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="pemeriksaan.html"><i class="fas fa-check-square me-2"></i>
+            Input Pemeriksaan</a><hr class="bg-light">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="bayi.html"><i class="fas fa-baby me-2"></i>
+            Daftar Bayi</a><hr class="bg-light">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="balita.html"><i class="fas fa-child me-2"></i>
+            Daftar Balita</a><hr class="bg-light">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="ibuhamil.html"><i class="fas fa-heart me-2"></i>
+            Daftar Ibu Hamil</a><hr class="bg-light">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="jadwal.html"><i class="fas fa-calendar-alt me-2"></i>
+            Jadwal Posyandu</a><hr class="bg-light">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="laporan.html"><i class="fas fa-paper-plane me-2"></i>
+            Laporan Posyandu</a><hr class="bg-light">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="pengaturan.html"><i class="fas fa-cog me-2"></i>
+            Pengaturan</a><hr class="bg-light">
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-10 p-4">
+        <marquee behavior="" direction="" style="color: #e94560;"><b id="getTeks"></b></marquee>
+        <h3><i class="fas fa-tachometer-alt me-2"></i>Dashboard</h3><hr>
+        <div class="row text-white">
+          <div class="card bg-info ms-5 mt-2" style="width: 18rem;">
+            <div class="card-body">
+              <div class="car-body-icon"><i class="fas fa-baby me-2"></i></div>
+              <h5 class="card-title">JUMLAH BAYI</h5>
+              <div class="display-4" id="getbayicount"></div>
+              <a href="bayi.html" style="text-decoration: none;"><p class="card-text text-white">Lihat Detail<i class="fas fa-angle-double-right ms-2"></i></p></a>
+            </div>
+          </div>
+
+          <div class="card bg-success ms-5 mt-2" style="width: 18rem;">
+            <div class="card-body">
+              <div class="car-body-icon"><i class="fas fa-child me-2"></i></div>
+              <h5 class="card-title">JUMLAH BALITA</h5>
+              <div class="display-4" id="getbalitacount"></div>
+              <a href="balita.html" style="text-decoration: none;"><p class="card-text text-white">Lihat Detail<i class="fas fa-angle-double-right ms-2"></i></p></a>
+            </div>
+          </div>
+
+          <div class="card bg-danger ms-5 mt-2" style="width: 18rem;">
+            <div class="card-body">
+              <div class="car-body-icon"><i class="fas fa-heart me-2"></i></div>
+              <h5 class="card-title">JUMLAH IBU HAMIL</h5>
+              <div class="display-4" id="getibuhamilcount"></div>
+              <a href="ibuhamil.html" style="text-decoration: none;"><p class="card-text text-white">Lihat Detail<i class="fas fa-angle-double-right ms-2"></i></p></a>
+            </div>
+          </div>
+
+          <div id="carouselExampleInterval" class="carousel slide mt-2" data-bs-ride="carousel">
+
+        </div>
+      </div>
+    </div>
+    <footer class="bg-dark text-center text-white">
+      <!-- Grid container -->
+      <div class="container p-4 pb-0">
+        <!-- Section: Social media -->
+        <section class="mb-4">
+          <!-- Facebook -->
+          <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/" role="button" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+    
+          <!-- Twitter -->
+          <a class="btn btn-outline-light btn-floating m-1" href="https://twitter.com/" role="button" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-twitter"></i
+          ></a>
+    
+          <!-- Google -->
+          <a class="btn btn-outline-light btn-floating m-1" href="https://www.google.com/" role="button" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-google"></i
+          ></a>
+    
+          <!-- Instagram -->
+          <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/" role="button" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-instagram"></i
+          ></a>
+        </section>
+        <!-- Section: Social media -->
+      </div>
+      <!-- Grid container -->
+    
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2021 Copyright: KELOMPOK 1</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Optional JavaScript; choose one of the two! -->
+    
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="header.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <link rel="stylesheet/JavaScript" href="admin.js">
+    <!-- <script src="bootstrap/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    <script src="bootstrap/js/swiped-events.min.js"></script>
+    <script src="admin.js"></script>
+    <script>
+    function myFunction() {
+      session();
+     
+       $.ajax({
+              method: "GET",
+              url: "/getbayicount",
+              })
+              .done(function( msg ) {
+              $("#getbayicount").html(msg);
+              var items = [];
+                var jumlahbayi =0;
+                var jumlahbalita =0;
+                var tr="";
+                $.each( msg, function( key, val ) {
+                  if (val.is_bayi == true){
+                    jumlahbayi++;
+                  } else {
+                    jumlahbalita++;
+                  }
+                });
+                $("#getbayicount").html(jumlahbayi)
+                $("#getbalitacount").html(jumlahbalita)
+          });
+          $.ajax({
+              method: "GET",
+              url: "/getibuhamilcount",
+              })
+              .done(function( msg ) {
+              $("#getibuhamilcount").html(msg);
+              var items = [];
+                var jumlahibuhamil =0;
+                var tr="";
+                $.each( msg, function( key, val ) {
+                  if (val.is_aktif == true){
+                    jumlahibuhamil++;
+                  }
+                });
+                $("#getibuhamilcount").html(jumlahibuhamil)
+          });
+
+          $.ajax({
+              method: "GET",
+              url: "/marquee",
+              })
+              .done(function( msg ) {
+                $.each( msg, function( key, val ) {
+                  $("#getTeks").html(val.teks);
+                });
+          });
+          $.ajax({
+              method: "GET",
+              url: "/gambar",
+              })
+              .done(function( msg ) {
+                var i=0;
+                $("#carouselExampleInterval").append("<div class='carousel-inner'>")
+                $.each( msg, function( key, val ) {
+                  var ac=" ";
+                  if (i==0){
+                    ac  = "active";
+                  }
+                  $("#carouselExampleInterval").append("<div style='z-index:-1' class='carousel-item "+ac+"' data-bs-interval='4000'><img src='"+val.gambar+"' class='d-block w-100 tales' alt='...'></div>");
+                  
+                  i++
+                });
+                $("#carouselExampleInterval").append("</div><button class='carousel-control-prev' type='button' data-bs-target='#carouselExampleInterval' data-bs-slide='prev'><span class='carousel-control-prev-icon' aria-hidden='true'></span> <span class='visually-hidden'>Previous</span> </button><button class='carousel-control-next' type='button' data-bs-target='#carouselExampleInterval' data-bs-slide='next'><span class='carousel-control-next-icon' aria-hidden='true'></span><span class='visually-hidden'>Next</span></button>")
+
+          });
+         
+       }
+   </script> 
+
+  
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

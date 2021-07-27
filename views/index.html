@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="admin.css">
+    <script src="jquery-3.6.0.min.js"></script>
+    <title>Web Posyandu Login</title>
+</head>
+<body>
+    <div class="sampul" style="font-family: sans-serif;">
+        <div class="kolom-login">
+            <img src="avatar.png" alt="" class="gambarprofil">
+            <h1>Welcome Admin</h1>
+            
+                <p>Username</p>
+                <input type="text" name="username" id="username"
+                placeholder="Masukan Username">
+                <p>Password</p>
+                <input type="password" name="password" id="password"
+                placeholder="Masukan Password">
+                <button onclick="myFunction()" name="login">Login</button>
+            
+        </div>
+    </div>   
+    
+    <script type="text/javascript">
+    function myFunction() {
+       
+        var username = $("#username").val();
+        var pass = $("#password").val();
+        $.ajax({
+            method: "GET",
+            url: "/login/"+username+"/"+pass,
+            data: { username: username, pass: pass }
+            })
+            .done(function( msg ) {
+                if (msg =="berhasil"){
+                    window.location.href = "/main.html";
+                }else{
+                    alert("Username dan Password Salah");
+                }
+        });
+    }
+    
+    </script> 
+</body>
+</html>

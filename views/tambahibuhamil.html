@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="col-md-12 pt-3 p-4">
+      <h3 id="title">TAMBAH DATA IBU HAMIL</h3><hr>
+      <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Nama Ibu Hamil</span>
+          <input type="text" class="form-control" placeholder="Nama Sesuai KMS" aria-label="Nama Sesuai KMS" aria-describedby="basic-addon1" id="nama_ibu_hamil">
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">NIK</span>
+          <input type="text" class="form-control" placeholder="Nama Sesuai KMS" aria-label="NIK Sesuai KK" aria-describedby="basic-addon1" id="nik">
+        </div>
+        
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Tempat,Tanggal-Bulan-Tahun" aria-label="Recipient's username" aria-describedby="basic-addon2" id="ttl">
+          <span class="input-group-text" id="basic-addon2">TTL</span>
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Nama Suami</span>
+          <input type="text" class="form-control" placeholder="" aria-label="S" aria-describedby="basic-addon1" id="nama_suami">
+        </div>
+
+        <div style="display: none;" class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">ID</span>
+          <input type="text" class="form-control" placeholder="" aria-label="S" aria-describedby="basic-addon1" id="_id">
+        </div>
+
+        <input type="button" class="btn-check" id="btn-check" autocomplete="off" onclick="myFunction()">
+        <label class="btn btn-primary mt-3" for="btn-check">Submit</label>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -- >
+
+    <!- Option 1: Bootstrap Bundle with Popper -->
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="header.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+          var param = parseURLParams(window.location.href);
+          if (param){
+            $("#title").html("UBAH DATA IBU HAMIL");
+
+          }
+          $("#nama_ibu_hamil").val(param.namaibuhamil);
+          $("#nik").val(param.nik);
+          $("#ttl").val(param.ttl);
+          $("#nama_suami").val(param.nama_suami);
+          $("#_id").val(param._id);
+
+
+        });
+        function parseURLParams(url) {
+          var queryStart = url.indexOf("?") + 1,
+              queryEnd   = url.indexOf("#") + 1 || url.length + 1,
+              query = url.slice(queryStart, queryEnd - 1),
+              pairs = query.replace(/\+/g, " ").split("&"),
+              parms = {}, i, n, v, nv;
+
+          if (query === url || query === "") return;
+
+          for (i = 0; i < pairs.length; i++) {
+              nv = pairs[i].split("=", 2);
+              n = decodeURIComponent(nv[0]);
+              v = decodeURIComponent(nv[1]);
+
+              if (!parms.hasOwnProperty(n)) parms[n] = [];
+              parms[n].push(nv.length === 2 ? v : null);
+          }
+          return parms;
+      }
+      function myFunction() {
+          var nama_ibu_hamil = $("#nama_ibu_hamil").val();
+          var nik = $("#nik").val();
+          var ttl = $("#ttl").val();
+          var nama_suami = $("#nama_suami").val();
+          var _id = $("#_id").val();
+          
+          
+          if ($("#title").html()=="TAMBAH DATA IBU HAMIL"){  
+            $.ajax({
+                method: "POST",
+                url: "/ibuhamil/"+nama_ibu_hamil+"/"+nik+"/"+ttl+"/"+nama_suami,
+                })
+                .done(function( msg ) {
+                    if (msg =="berhasil"){
+                      parent.document.getElementById("btnCloseModal").click();
+                      parent.window.location.href="ibuhamil.html";
+                    }else{
+                        alert("Gagal Tambah Data");
+                    }
+            });
+          }else{
+            $.ajax({
+                method: "PUT",
+                url: "/ibuhamil/"+nama_ibu_hamil+"/"+nik+"/"+ttl+"/"+nama_suami+"/"+_id,
+                })
+                .done(function( msg ) {
+                    if (msg =="berhasil"){
+                      parent.document.getElementById("btnCloseModal").click();
+                      parent.window.location.href="ibuhamil.html";
+                    }else{
+                        alert("Gagal Edit Data");
+                    }
+            });
+          }
+          
+      }
+      
+      </script> 
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

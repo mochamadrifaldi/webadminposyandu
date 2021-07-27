@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="fontawesome-free/css/all.min.css">   
+    
+    <title>Web Posyandu</title>
+  </head>
+  <body class="pt-5" onload="myFunction()">
+
+<!-- Modal -->
+<div class="modal fade" id="hapusModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Warning</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Apakah Anda Yakin untuk menghapus  <span id="id_ibu_hamil" style="display: none;"></span>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button id="btnHapusModal" type="button" class="btn btn-danger">Hapus Data</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Form Ibu Hamil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <iframe id="iframeTambahModal" width="100%" height="420px" src="tambahibuhamil.html"></iframe>
+      </div>
+      <div class="modal-footer" style="display: none;">
+        <button type="button" id="btnCloseModal" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Navbar -->
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top main-navigation">
+      <div class="container-fluid">
+        <a class="navbar-brand order-2 order-lg-1 me-auto ms-3 me-lg-3 ms-lg-0" href="main.html" id="judul" style="font-family: helvetica;" href="#"><b>WELCOME ADMIN</b></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--Overlay-->
+        <div class="overlay d-flex d-lg-none"></div>
+        <!--Overlay-->
+        <div class="order-lg-2 bg-dark d-lg-flex w-100 pb-3 pb-lg-0 sidebar" id="navbarSupportedContent">
+          <ul class="navbar-nav me-lg-auto mb-2 mb-lg-0">
+           
+          </ul>
+          <!-- <form class="d-flex px-3 px-lg-2">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form> -->
+            <div id="clock">
+              <script>
+                  setInterval(showTime, 1000);
+                  function showTime() {
+                      let time = new Date();
+                      let hour = time.getHours();
+                      let min = time.getMinutes();
+                      let sec = time.getSeconds();
+            
+                      if (hour > 12) {
+                          hour -= 12;
+                      }
+                      if (hour == 0) {
+                          hr = 12;
+                      }
+            
+                      hour = hour < 10 ? "0" + hour : hour;
+                      min = min < 10 ? "0" + min : min;
+                      sec = sec < 10 ? "0" + sec : sec;
+            
+                      let currentTime = "TIME "+hour + ":" + min + ":" + sec ;
+            
+                      document.getElementById("clock").innerHTML = currentTime;
+                  }
+                  showTime();
+              </script>
+            </div>
+          <ul class="navbar-nav mb-2 mb-lg-0">
+              <li class="nav-item icon ms-4">
+                <a class="nav-link px-3 px-lg-2" href="https://www.google.com/gmail/">
+                  <i class="fas fa-envelope fa-lg" data-toggle="tooltip" title="Surat Masuk" style="color: white; vertical-align: middle;">
+                  </i>
+                </a>
+            </li>
+            <li class="nav-item icon ms-4">
+              <a class="nav-link px-3 px-lg-2" href="https://www.google.com">
+                <i class="fab fa-google fa-lg" data-toggle="tooltip" title="Google.com" style="color: white; vertical-align: middle;">
+                </i>
+              </a>
+          </li>
+          <li class="nav-item icon ms-4" id="btnLogout">
+              <a class="nav-link px-3 px-lg-2" >
+                <i class="fas fa-sign-out-alt fa-lg" data-toggle="tooltip" title="Log Out" style="color: white; vertical-align: middle;">
+                </i>
+              </a>
+          </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar -->
+    <div class="row g-0">
+      <div class="col-md-2 bg-dark pe-3 pt-5 pb-5">
+        <ul class="nav flex-column ms-3 mb-5" >
+          <li class="nav-item">
+            <a class="nav-link active text-white" aria-current="page" href="main.html"><i class="fas fa-tachometer-alt me-2"></i>
+            Dashboard</a><hr class="bg-light">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="pemeriksaan.html"><i class="fas fa-check-square me-2"></i>
+            Input Pemeriksaan</a><hr class="bg-light">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="bayi.html"><i class="fas fa-baby me-2"></i>
+            Daftar Bayi</a><hr class="bg-light">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="balita.html"><i class="fas fa-child me-2"></i>
+            Daftar Balita</a><hr class="bg-light">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="ibuhamil.html"><i class="fas fa-heart me-2"></i>
+            Daftar Ibu Hamil</a><hr class="bg-light">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="jadwal.html"><i class="fas fa-calendar-alt me-2"></i>
+            Jadwal Posyandu</a><hr class="bg-light">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="laporan.html"><i class="fas fa-paper-plane me-2"></i>
+            Laporan Posyandu</a><hr class="bg-light">
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="pengaturan.html"><i class="fas fa-cog me-2"></i>
+            Pengaturan</a><hr class="bg-light">
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-10 pt-5 p-4">
+        <h3><i class="fas fa-user-graduate me-2"></i></i>DAFTAR IBU HAMIL</h3><hr>
+        <a id="btnTambahIbuHamil" class="btn btn-primary mb-3"><i class="fas fa-plus-square me-3"></i>TAMBAH DATA IBU HAMIL</a>
+        <div class="table-responsive">
+          <table class="table table-bordered" id="tabel_ibu_hamil">
+            <thead class="table">
+                <th scope="col">NO</th>
+                <th scope="col">NAMA IBU HAMIL</th>
+                <th scope="col">NIK</th>
+                <th scope="col">TEMPAT TGL LAHIR</th>
+                <th scope="col">NAMA SUAMI</th>
+                <th scope="col">AKSI</th>
+            </thead>
+            <tbody id="daftar_ibu_hamil">
+              
+            </tbody>
+          </table>
+        </div>
+         
+        </div>
+      </div>
+      <!-- Button trigger modal -->
+      
+        
+    <footer class="bg-dark text-center text-white">
+      <!-- Grid container -->
+      <div class="container p-4 pb-0">
+        <!-- Section: Social media -->
+        <section class="mb-4">
+          <!-- Facebook -->
+          <a class="btn btn-outline-light btn-floating m-1" href="https://www.facebook.com/" role="button" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+    
+          <!-- Twitter -->
+          <a class="btn btn-outline-light btn-floating m-1" href="https://twitter.com/" role="button" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-twitter"></i
+          ></a>
+    
+          <!-- Google -->
+          <a class="btn btn-outline-light btn-floating m-1" href="https://www.google.com/" role="button" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-google"></i
+          ></a>
+    
+          <!-- Instagram -->
+          <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/" role="button" target="_blank" rel="noopener noreferrer"
+            ><i class="fab fa-instagram"></i
+          ></a>
+        </section>
+        <!-- Section: Social media -->
+      </div>
+      <!-- Modal HTML embedded directly into document -->
+      
+      <!-- Grid container -->
+    
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2021 Copyright: KELOMPOK 1</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Optional JavaScript; choose one of the two! -->
+    
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet/JavaScript" href="admin.js">
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="bootstrap/js/swiped-events.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="admin.js"></script>
+    <script src="header.js"></script>
+    <script type="text/javascript">
+      $(document).ready( function () {
+          session();
+      } );
+      $("#btnTambahIbuHamil").click(function(){
+        $("#iframeTambahModal").attr("src","tambahibuhamil.html");
+        $('#tambahModal').modal('toggle');
+      })
+
+      function myFunction() {
+          $.ajax({
+              method: "GET",
+              url: "/ibuhamil",
+              })
+              .done(function( msg ) {
+                var items = [];
+                var i =1;
+                var tr="";
+                $.each( msg, function( key, val ) {
+
+                  tr += "<tr><td scope='row'><span style='display: none' id='id_"+i+"'>"+val._id+"</span>"+i+"</td><td>"+val.nama_ibu_hamil+"</td><td>"+val.nik+"</td><td>"+val.ttl+"</td><td>"+val.nama_suami+"</td><td><i id='edit_id_"+val._id+"' data-url='tambahibuhamil.html?namaibuhamil="+val.nama_ibu_hamil+"&nik="+val.nik+"&ttl="+val.ttl+"&nama_suami="+val.nama_suami+"&_id="+val._id+"' class='fas fa-edit bg-success p-2 text-white rounded' data-toggle='tooltip' title='Edit'></i> <i id='delid_"+val._id+"' class='deleteid fas fa-trash-alt bg-danger p-2 text-white rounded' data-toggle='tooltip' title='Delete'></i></td></tr>";
+                  i++;
+                });
+                $("#daftar_ibu_hamil").append(tr);
+                $('#tabel_ibu_hamil').DataTable();
+                $("[id^='delid_']").click(function(){
+                  $('#hapusModal').modal('toggle');
+                  var id = this.id.replace("delid_", "");
+                  $("#id_ibu_hamil").html(id);
+                })
+                $("[id^='edit_id_']").click(function(){
+                  var url = $(this).attr("data-url");
+                  $("#iframeTambahModal").attr("src",url);
+                  $('#tambahModal').modal('toggle');
+                })
+              
+          });
+       }
+       $("#btnHapusModal").click(function(){
+        var id = $("#id_ibu_hamil").html();
+        $.ajax({
+          method: "PUT",
+          url: "/ibuhamil/"+id
+          })
+          .done(function( msg ) {
+              if (msg =="berhasil"){
+                  window.location.href = "/ibuhamil.html";
+              }else{
+                  alert("Gagal Edit Data");
+              }
+        });
+       })
+       
+
+       function deleteid(_id){
+        
+       }
+      
+      </script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    
+  </body>
+</html>
