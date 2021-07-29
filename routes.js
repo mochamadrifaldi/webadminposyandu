@@ -151,6 +151,39 @@ app.put('/bayi/:nama_bayi/:nik/:ttl/:nama_ibu/:_id', async (req, res) => {
     }
    })
 
+   app.put('/balita/:nama_bayi/:nik/:ttl/:nama_ibu/:_id', async (req, res) => {
+    if (client.isConnected()) {
+    const { nama_bayi, nik, ttl, nama_ibu, _id } = req.body
+    const db = client.db('wpu')
+    const result = await db.collection('bayi').updateOne(
+        { _id: ObjectId(req.params._id) },
+        {
+        $set: { 
+            nama_bayi: req.params.nama_bayi,
+            nik: req.params.nik,
+            ttl: req.params.ttl,
+            nama_ibu: req.params.nama_ibu
+            }
+            }
+            )
+                  
+    if (result.matchedCount == 1) {
+    res.send("berhasil")
+    } else {
+    res.send({
+    status: 'warning',
+    message: 'tambah data gagal',
+    })
+    }
+    
+    } else {
+    res.send({
+    status: 'error',
+    message: 'koneksi database gagal'
+    })
+    }
+   })
+
 app.put('/bayi/:_id', async (req, res) => {
     if (client.isConnected()) {
 
